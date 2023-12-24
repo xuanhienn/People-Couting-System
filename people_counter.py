@@ -1,6 +1,6 @@
 from tracker.centroidtracker import CentroidTracker
 from tracker.trackableobject import TrackableObject
-from imutils.video import VideoStream
+# from imutils.video import VideoStream
 from itertools import zip_longest
 from utils.mailer import Mailer
 from imutils.video import FPS
