@@ -84,7 +84,7 @@ def people_counter():
 	# if a video path was not supplied, grab a reference to the ip camera
 	if not args.get("input", False):
 		logger.info("Starting the live stream..")
-		vs = VideoStream(config["url"]).start()
+		# vs = VideoStream(config["url"]).start()
 		time.sleep(2.0)
 
 	# otherwise, grab a reference to the video file
@@ -128,7 +128,8 @@ def people_counter():
 		if args["input"] is not None and frame is None:
 			break
 
-		frame = imutils.resize(frame, width = 500)
+		# frame = imutils.resize(frame, width = 500)
+		frame = cv2.resize(frame, (500,500))
 		rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
 		# if the frame dimensions are empty, set them
