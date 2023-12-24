@@ -3,7 +3,7 @@ from tracker.trackableobject import TrackableObject
 # from imutils.video import VideoStream
 from itertools import zip_longest
 from utils.mailer import Mailer
-from imutils.video import FPS
+# from imutils.video import FPS
 from utils import thread
 import numpy as np
 import threading
@@ -114,7 +114,7 @@ def people_counter():
 	out_time = []
 	in_time = []
 
-	fps = FPS().start()
+	# fps = FPS().start()
 
 	if config["Thread"]:
 		vs = thread.ThreadingClass(config["url"])
@@ -128,8 +128,8 @@ def people_counter():
 		if args["input"] is not None and frame is None:
 			break
 
-		# frame = imutils.resize(frame, width = 500)
-		frame = cv2.resize(frame, (500,500))
+		frame = imutils.resize(frame, width = 500)
+		# frame = cv2.resize(frame, (500,500))
 		rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
 		# if the frame dimensions are empty, set them
@@ -330,7 +330,7 @@ def people_counter():
 		# increment the total number of frames processed thus far and
 		# then update the FPS counter
 		totalFrames += 1
-		fps.update()
+		# fps.update()
 
 		# initiate the timer
 		if config["Timer"]:
@@ -341,9 +341,9 @@ def people_counter():
 				break
 
 	# stop the timer and display FPS information
-	fps.stop()
-	logger.info("Elapsed time: {:.2f}".format(fps.elapsed()))
-	logger.info("Approx. FPS: {:.2f}".format(fps.fps()))
+	# fps.stop()
+	# logger.info("Elapsed time: {:.2f}".format(fps.elapsed()))
+	# logger.info("Approx. FPS: {:.2f}".format(fps.fps()))
 
 	# release the camera device/resource (issue 15)
 	if config["Thread"]:
