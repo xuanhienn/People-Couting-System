@@ -3,8 +3,8 @@ from tracker.trackableobject import TrackableObject
 # from imutils.video import VideoStream
 from itertools import zip_longest
 from utils.mailer import Mailer
-# from imutils.video import FPS
-# from utils import thread #################3
+from imutils.video import FPS
+from utils import thread
 import numpy as np
 import threading
 import argparse
@@ -114,10 +114,10 @@ def people_counter():
 	out_time = []
 	in_time = []
 
-	# fps = FPS().start()
+	fps = FPS().start()
 
-	# if config["Thread"]:##################
-	# 	vs = thread.ThreadingClass(config["url"]) ############33
+	if config["Thread"]:
+		vs = thread.ThreadingClass(config["url"])
 
 	while True:
 
@@ -273,9 +273,9 @@ def people_counter():
 								cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 2)
 							if config["ALERT"]:
 								logger.info("Sending email alert..")
-								# email_thread = threading.Thread(target = send_mail)
-								# email_thread.daemon = True
-								# email_thread.start()
+								email_thread = threading.Thread(target = send_mail)
+								email_thread.daemon = True
+								email_thread.start()
 								logger.info("Alert sent!")
 						to.counted = True
 						# compute the sum of total people inside
@@ -330,7 +330,7 @@ def people_counter():
 		# increment the total number of frames processed thus far and
 		# then update the FPS counter
 		totalFrames += 1
-		# fps.update()
+		fps.update()
 
 		# initiate the timer
 		if config["Timer"]:
@@ -341,13 +341,13 @@ def people_counter():
 				break
 
 	# stop the timer and display FPS information
-	# fps.stop()
-	# logger.info("Elapsed time: {:.2f}".format(fps.elapsed()))
-	# logger.info("Approx. FPS: {:.2f}".format(fps.fps()))
+	fps.stop()
+	logger.info("Elapsed time: {:.2f}".format(fps.elapsed()))
+	logger.info("Approx. FPS: {:.2f}".format(fps.fps()))
 
 	# release the camera device/resource (issue 15)
-	# if config["Thread"]:
-	# 	vs.release()
+	if config["Thread"]:
+		vs.release()
 
 	# close any open windows
 	cv2.destroyAllWindows()
